@@ -1,0 +1,6 @@
+framework module Pods_testTCADemo {
+  umbrella header "Pods-testTCADemo-umbrella.h"
+
+  export *
+  module * { export * }
+}
