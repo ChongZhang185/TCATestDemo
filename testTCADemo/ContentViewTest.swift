@@ -23,6 +23,14 @@ struct ContentViewTest: View {
                     store.send(.incrementButtonTapped)
                 }
             }
+            HStack {
+                Button("Random") {
+                    store.send(.generateRandomTapped)
+                }
+                if let randomNumber = store.state.randomNumber {
+                    Text("Random: \(randomNumber)").frame(width: 150, height: 50, alignment: .center)
+                }
+            }
         }
     }
 }

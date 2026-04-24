@@ -12,11 +12,14 @@ struct CounterFeature: Reducer {
     @ObservableState
     struct State: Equatable {
         var count: Int = 0
+        var randomNumber: Int?
     }
 
     enum Action: Equatable {
         case decrementButtonTapped
         case incrementButtonTapped
+        case generateRandomTapped
+        case randomNumberGenerated(Int)
     }
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
@@ -26,6 +29,14 @@ struct CounterFeature: Reducer {
             return .none
         case .incrementButtonTapped:
             state.count += 1
+            return .none
+        case .generateRandomTapped:
+            return .run { send in
+                let random = Int.random(in: 1...100)
+                await send(.randomNumberGenerated(random))
+            }
+        case let .randomNumberGenerated(number):
+            state.randomNumber = number
             return .none
         }
     }
